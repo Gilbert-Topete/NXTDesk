@@ -28,4 +28,5 @@ if (!getApps().length) { //If the array is empty...
     firebaseApp = initializeApp(firebaseConfig) //Start the instance properly
 }
 
-export const auth = getAuth(firebaseApp) //Returns auth instance for other apps to use
+//Returns auth instance for other components to use
+export const auth = getAuth(firebaseApp)

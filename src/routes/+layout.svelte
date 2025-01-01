@@ -13,4 +13,14 @@
 
 	// () => {} - Anonymous Function (function w/o name)
 </script>
-<slot/>
+<main class="mainContainer">
+	<slot/>
+</main>
+
+<style>
+	.mainContainer {
+		min-height: 100vh;
+		display: flex;
+		flex-direction: column;
+	}
+</style>

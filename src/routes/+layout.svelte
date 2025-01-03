@@ -7,9 +7,9 @@
 			console.log(user) //Displays user object
 			authStore.update((curr) => { //Function stores current user into user store
 				return {...curr, isLoading: false, currentUser: user}
-			})
-		})
-	})
+			});
+		});
+	});
 
 	// () => {} - Anonymous Function (function w/o name)
 </script>

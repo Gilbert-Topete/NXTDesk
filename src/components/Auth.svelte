@@ -9,26 +9,26 @@
 
     async function handleSubmit() {
         if (!email || !password || (registerStatus && !confirmPassword)) {
-            return
+            return;
         }
 
         if (registerStatus && password === confirmPassword) {
             try {
-                await authHandlers.signup(email, password)
+                await authHandlers.signup(email, password);
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
         } else {
             try {
-                await authHandlers.login(email, password)
+                await authHandlers.login(email, password);
             } catch (error) {
-                console.log(error)
+                console.log(error);
             }
         }
         //If the current user exists, redirect from login page to
         //dashboard
         if ($authStore.currentUser) {
-            window.location.href = '/privatedashboard'
+            window.location.href = '/privatedashboard';
         }
     }
 </script>

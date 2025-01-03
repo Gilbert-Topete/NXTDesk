@@ -1,14 +1,36 @@
 <!-- script - can contain JS code -->
 <script>
-    let register = true;
+	import { authHandlers } from "../store/authStore";
+
+    let registerStatus = true;
     let email = '';
     let password = '';
     let confirmPassword = '';
+
+    async function handleSubmit() {
+        if (!email || !password || (registerStatus && !confirmPassword)) {
+            return
+        }
+
+        if (registerStatus && password === confirmPassword) {
+            try {
+                await authHandlers.signup(email, password)
+            } catch (error) {
+                console.log(error)
+            }
+        } else {
+            try {
+                await authHandlers.login(email, password)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+    }
 </script>
 <!-- div - container for other HTML elements -->
 <div class="container">
-    <!-- h1 - Heading 1 font size-->
-    <h1>Welcome to NXTDesk</h1>
+    <!-- h1 - Heading 1 font size -->
+    <h1>{registerStatus ? "Login to NXTDesk" : "Register for NXTDesk"}</h1>
     <!-- form - holds elements for user input form -->
     <form>
         <!-- label - container that stores input -->
@@ -16,7 +38,7 @@
             <!-- input - defines input type 
              (and any placeholder text)-->
             <input 
-                type="text" 
+                type="email" 
                 placeholder="Email"/>
         </label>
         <label>
@@ -24,7 +46,7 @@
                 type="password" 
                 placeholder="Password"/>
         </label>
-        {#if register}
+        {#if !(registerStatus)}
             <label>
                 <input 
                     type="password"
@@ -33,18 +55,32 @@
         {/if}
         <!-- button - a button 
          (what else did you expect?)-->
-        <button>Submit</button>
+        <!-- Button click will run the handleSubmit function -->
+        <button on:click={handleSubmit}>{registerStatus ? "Login" : "Register"}</button>
     </form>
-    {#if register}
-        <div>
+    {#if registerStatus}
+        <div> 
             <p>
-                Don't have an account? Sign up here!
+                Don't have an account?
+            </p>
+            <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+            <p on:click={() => {
+                registerStatus = false;
+            }} on:keydown={() => {}}>
+                Sign up here!
             </p>
         </div>
         {:else}
-            <div>
+            <div> 
                 <p>
-                    Already have an account? Log in here!
+                    Already have an account?
+                </p>
+                <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+                <!-- When this string is clicked, registerStatus becomes true -->
+                <p on:click={() => {
+                    registerStatus = true;
+                }} on:keydown={() => {}}> 
+                    Log in here!
                 </p>
             </div>
     {/if}
@@ -63,5 +99,9 @@
     .container form {
         display: flex;
         flex-direction: column;
+    }
+
+    .container p {
+        text-align: center;
     }
 </style>

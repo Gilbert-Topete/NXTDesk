@@ -1,6 +1,6 @@
 <!-- script - can contain JS code -->
 <script>
-	import { authHandlers } from "../store/authStore";
+	import { authHandlers, authStore } from "../store/authStore";
 
     let registerStatus = true;
     let email = '';
@@ -24,6 +24,11 @@
             } catch (error) {
                 console.log(error)
             }
+        }
+        //If the current user exists, redirect from login page to
+        //dashboard
+        if ($authStore.currentUser) {
+            window.location.href = '/privatedashboard'
         }
     }
 </script>

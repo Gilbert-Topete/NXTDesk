@@ -2,17 +2,17 @@
 <script>
 	import { authHandlers, authStore } from "../store/authStore";
 
-    let registerStatus = true;
+    let signup = true;
     let email = '';
     let password = '';
     let confirmPassword = '';
 
     async function handleSubmit() {
-        if (!email || !password || (registerStatus && !confirmPassword)) {
+        if (!email || !password || (signup && !confirmPassword)) {
             return;
         }
 
-        if (registerStatus && password === confirmPassword) {
+        if (signup && password === confirmPassword) {
             try {
                 await authHandlers.signup(email, password);
             } catch (error) {
@@ -35,7 +35,7 @@
 <!-- div - container for other HTML elements -->
 <div class="container">
     <!-- h1 - Heading 1 font size -->
-    <h1>{registerStatus ? "Login to NXTDesk" : "Register for NXTDesk"}</h1>
+    <h1>{signup ? "Register for NXTDesk" : "Login to NXTDesk"}</h1>
     <!-- form - holds elements for user input form -->
     <form>
         <!-- label - container that stores input -->
@@ -43,34 +43,37 @@
             <!-- input - defines input type 
              (and any placeholder text)-->
             <input 
+                bind:value={email}
                 type="email" 
                 placeholder="Email"/>
         </label>
         <label>
             <input 
+                bind:value={password}
                 type="password" 
                 placeholder="Password"/>
         </label>
-        {#if !(registerStatus)}
+        {#if signup}
             <label>
                 <input 
+                    bind:value={confirmPassword}
                     type="password"
-                    placeholder="Confirm Password">
+                    placeholder="Confirm Password"/>
             </label>
         {/if}
         <!-- button - a button 
          (what else did you expect?)-->
         <!-- Button click will run the handleSubmit function -->
-        <button on:click={handleSubmit}>{registerStatus ? "Login" : "Register"}</button>
+        <button on:click={handleSubmit}>{signup ? "Register" : "Log in"}</button>
     </form>
-    {#if registerStatus}
+    {#if signup}
         <div> 
             <p>
                 Don't have an account?
             </p>
             <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
             <p on:click={() => {
-                registerStatus = false;
+                signup = false;
             }} on:keydown={() => {}}>
                 Sign up here!
             </p>
@@ -83,7 +86,7 @@
                 <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
                 <!-- When this string is clicked, registerStatus becomes true -->
                 <p on:click={() => {
-                    registerStatus = true;
+                    signup = true;
                 }} on:keydown={() => {}}> 
                     Log in here!
                 </p>

@@ -1,5 +1,7 @@
+<!-- Private Dashboard page -->
 <script>
-	import { authStore } from "../../store/authStore";
+	import AuthReset from "../../components/AuthReset.svelte";
+    import { authHandlers, authStore } from "../../store/authStore";
 
     let email;
     authStore.subscribe((curr) => {
@@ -9,6 +11,8 @@
 
 {#if $authStore.currentUser}
     <h1>Welcome back, {email}</h1>
+    <AuthReset />
+    <button on:click={authHandlers.logout}>Logout</button>
 {:else}
     <div>Loading...</div>
 {/if}

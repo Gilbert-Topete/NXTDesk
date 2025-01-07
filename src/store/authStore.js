@@ -21,7 +21,7 @@ export const authHandlers = {
         await updateEmail(auth, email)
     },
     updatePassword: async (password) => {
-        await updatePassword(auth, password)
+        await updatePassword(auth.currentUser, password)
     },
     login: async (email, password) => {
         await signInWithEmailAndPassword(auth, email, password)

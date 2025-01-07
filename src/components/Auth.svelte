@@ -2,7 +2,7 @@
 <script>
 	import { authHandlers, authStore } from "../store/authStore";
 
-    let signup = true;
+    let action = 'login';
     let email = '';
     let password = '';
     let confirmPassword = '';
@@ -34,63 +34,121 @@
 </script>
 <!-- div - container for other HTML elements -->
 <div class="container">
-    <!-- h1 - Heading 1 font size -->
-    <h1>{signup ? "Register for NXTDesk" : "Login to NXTDesk"}</h1>
-    <!-- form - holds elements for user input form -->
-    <form>
-        <!-- label - container that stores input -->
-        <label>
-            <!-- input - defines input type 
-             (and any placeholder text)-->
-            <input 
-                bind:value={email}
-                type="email" 
-                placeholder="Email"/>
-        </label>
-        <label>
-            <input 
-                bind:value={password}
-                type="password" 
-                placeholder="Password"/>
-        </label>
-        {#if signup}
+    {#if action === 'signup'}
+         <!-- register form -->
+          <h1>Register for NXTDesk</h1>
+          <form>
+            <label>
+                <!-- input - defines input type 
+                 (and any placeholder text)-->
+                <input 
+                    bind:value={email}
+                    type="email" 
+                    placeholder="Email"/>
+            </label>
+            <label>
+                <input 
+                    bind:value={password}
+                    type="password" 
+                    placeholder="Password"/>
+            </label>
             <label>
                 <input 
                     bind:value={confirmPassword}
                     type="password"
                     placeholder="Confirm Password"/>
             </label>
-        {/if}
-        <!-- button - a button 
-         (what else did you expect?)-->
-        <!-- Button click will run the handleSubmit function -->
-        <button on:click={handleSubmit}>{signup ? "Register" : "Log in"}</button>
-    </form>
-    {#if signup}
-        <div> 
+            <button on:click={handleSubmit}>
+                Sign Up
+            </button>
+          </form>
+          <div> 
+            <p>
+                Already have an account?
+            </p>
+            <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+            <!-- When this string is clicked, registerStatus becomes true -->
+            <p on:click={() => {
+                action = 'login';
+            }} on:keydown={() => {}}> 
+                Log in here!
+            </p>
+            <button
+                on:click={() => {
+                    action = 'resetPass'
+                }}
+                on:keydown={() => {}}>
+                Reset Password
+            </button>
+        </div>
+    {:else if  action === 'login'}
+         <!-- Login form -->
+          <h1>Login to NXTDesk</h1>
+          <form>
+            <label>
+                <!-- input - defines input type 
+                 (and any placeholder text)-->
+                <input 
+                    bind:value={email}
+                    type="email" 
+                    placeholder="Email"/>
+            </label>
+            <label>
+                <input 
+                    bind:value={password}
+                    type="password" 
+                    placeholder="Password"/>
+            </label>
+            <button on:click={handleSubmit}>
+                Log in
+            </button>
+          </form>
+          <div> 
             <p>
                 Don't have an account?
             </p>
             <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
             <p on:click={() => {
-                signup = false;
+                action = 'signup';
             }} on:keydown={() => {}}>
                 Sign up here!
             </p>
+            <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+            <p
+                on:click={() => {
+                    action = 'resetPass'
+                }}
+                on:keydown={() => {}}>
+                Reset Password
+            </p>
         </div>
-        {:else}
-            <div> 
-                <p>
-                    Already have an account?
-                </p>
-                <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
-                <!-- When this string is clicked, registerStatus becomes true -->
-                <p on:click={() => {
-                    signup = true;
-                }} on:keydown={() => {}}> 
-                    Log in here!
-                </p>
-            </div>
+    {:else}
+         <!-- Reset password form -->
+          <h1>Reset password</h1>
+          <form>
+            <label>
+                <!--input - defines input type 
+                 (and any placeholder text)-->
+                <input 
+                    bind:value={email}
+                    type="email" 
+                    placeholder="Email"/>
+            </label>
+            <button
+                on:click={() => {
+                    authHandlers.reset_password(email)
+                }}
+                on:keydown={() => {}}
+            >
+                Reset password
+            </button>
+          </form>
+          <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+          <p on:click={() => {
+            action = 'login';
+        }} on:keydown={() => {}}>
+            Back to login
+        </p>
     {/if}
 </div>
 

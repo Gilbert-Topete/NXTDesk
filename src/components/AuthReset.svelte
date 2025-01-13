@@ -2,22 +2,19 @@
 <script>
 	import { authHandlers, authStore } from "../store/authStore";
 
-    let action = '';
-    let email = '';
+    //let action = '';
+    //let email = '';
     let password = '';
     let confirmPassword = '';
 
     async function handleSubmit() {
-        if (email && (password === confirmPassword)) {
+        if (password === confirmPassword) {
             return await authHandlers.updatePassword(password)
         }
     }
 </script>
 <!-- div - container for other HTML elements -->
 <div class="container">
-    <div>
-        <button>Update Password</button>
-    </div>
     <!-- h1 - Heading 1 font size -->
     <h1>Update Password</h1>
     <!-- form - holds elements for user input form -->
@@ -55,10 +52,5 @@
     .container form {
         display: flex;
         flex-direction: column;
-    }
-
-    .container div {
-        display: grid;
-        grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 </style>

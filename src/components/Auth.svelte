@@ -8,11 +8,11 @@
     let confirmPassword = '';
 
     async function handleSubmit() {
-        if (!email || !password || (signup && !confirmPassword)) {
+        if (!email || !password || (action === 'signup' && !confirmPassword)) {
             return;
         }
 
-        if (signup && password === confirmPassword) {
+        if (action === 'signup' && password === confirmPassword) {
             try {
                 await authHandlers.signup(email, password);
             } catch (error) {
@@ -73,13 +73,14 @@
             }} on:keydown={() => {}}> 
                 Log in here!
             </p>
-            <button
+            <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+            <p
                 on:click={() => {
                     action = 'resetPass'
                 }}
                 on:keydown={() => {}}>
                 Reset Password
-            </button>
+            </p>
         </div>
     {:else if  action === 'login'}
          <!-- Login form -->
@@ -148,6 +149,12 @@
             action = 'login';
         }} on:keydown={() => {}}>
             Back to login
+        </p>
+        <!-- svelte-ignore a11y_no_noninteractive_element_interactions -->
+        <p on:click={() => {
+            action = 'signup';
+        }} on:keydown={() => {}}>
+            Back to register
         </p>
     {/if}
 </div>

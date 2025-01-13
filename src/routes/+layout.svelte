@@ -12,8 +12,8 @@
 			});
 
 			if (browser &&
-				!authStore?.currentUser && //If there's no active user
-				!authStore.isLoading && //There's nothing to load
+				!$authStore?.currentUser && //If there's no active user
+				!$authStore.isLoading && //There's nothing to load
 				window.location.pathname !== '/') { //And we're not at the login page
 				window.location.href = '/'; //Bring us back to the login page
 			}

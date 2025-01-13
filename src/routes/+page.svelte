@@ -1,5 +1,5 @@
+<!--Login page-->
 <script>
 	import Auth from "../components/Auth.svelte";
-
 </script>
 <Auth/>

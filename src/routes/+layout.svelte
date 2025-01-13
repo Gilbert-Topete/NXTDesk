@@ -3,6 +3,7 @@
 	import { auth } from "$lib/firebase/firebase.client";
 	import { authStore } from "../store/authStore";
 	import { browser } from "$app/environment";
+	//import bootstrap from "bootstrap";
 
 	onMount(() => { //When the component mounts...
 		const unsubscribe = auth.onAuthStateChanged((user) => { //Subscribe to user auth state

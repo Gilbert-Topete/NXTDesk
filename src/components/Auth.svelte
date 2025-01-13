@@ -28,7 +28,7 @@
         //If the current user exists, redirect from login page to
         //dashboard
         if ($authStore.currentUser) {
-            window.location.href = '/privatedashboard';
+            window.location.href = '/home';
         }
     }
 </script>

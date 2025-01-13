@@ -23,12 +23,14 @@
 		"prettier": "^3.3.2",
 		"prettier-plugin-svelte": "^3.2.6",
 		"prettier-plugin-tailwindcss": "^0.6.5",
-		"svelte": "^5.0.0",
+		"svelte": "^5.17.3",
 		"tailwindcss": "^3.4.9",
 		"vite": "^5.4.11"
 	},
 	"dependencies": {
+		"@sveltestrap/sveltestrap": "^6.2.7",
 		"@tailwindcss/forms": "^0.5.9",
+		"bootstrap": "^5.3.3",
 		"firebase": "^11.1.0"
 	}
 }

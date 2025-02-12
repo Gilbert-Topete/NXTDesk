@@ -2,6 +2,7 @@
 <script>
 	import AuthReset from "../../components/AuthReset.svelte";
 	import Sidebar from "../../components/Sidebar.svelte";
+    import Navbar from "../../components/Navbar.svelte";
     import { authHandlers, authStore } from "../../store/authStore";
 
     let email;
@@ -12,7 +13,8 @@
 
 {#if $authStore.currentUser}
     <h1>Welcome back, {email}</h1>
-    <Sidebar />
+    <!--<Sidebar />-->
+    <Navbar />
     <div class="container">
         <h1>Support ticket page under construction. Come back later!</h1>
     </div>
